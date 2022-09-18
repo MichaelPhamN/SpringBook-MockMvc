@@ -1,6 +1,7 @@
 package com.example.mockmvcexampletwo.controller;
 
 import com.example.mockmvcexampletwo.exception.DataNotFoundException;
+import com.example.mockmvcexampletwo.exception.InvalidDataRequestException;
 import com.example.mockmvcexampletwo.model.User;
 import com.example.mockmvcexampletwo.service.impl.UserServiceImpl;
 import com.github.javafaker.Faker;
@@ -163,7 +164,7 @@ public class UserControllerTest_UT {
 
     @Test
     public void addUser_ReturnFailure() throws Exception {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        Exception exception = assertThrows(InvalidDataRequestException.class, () -> {
             userController.addUser(null);
         });
         String expected = "User data is not null";
@@ -192,7 +193,7 @@ public class UserControllerTest_UT {
 
     @Test
     public void editUser_ReturnFailure() throws Exception {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        Exception exception = assertThrows(InvalidDataRequestException.class, () -> {
             userController.editUser(null);
         });
         String expected = "User data is not null";

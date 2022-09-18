@@ -2,6 +2,7 @@ package com.example.mockmvcexampletwo.controller;
 
 import com.example.mockmvcexampletwo.constant.URIConstant;
 import com.example.mockmvcexampletwo.exception.DataNotFoundException;
+import com.example.mockmvcexampletwo.exception.InvalidDataRequestException;
 import com.example.mockmvcexampletwo.model.User;
 import com.example.mockmvcexampletwo.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,7 @@ public class UserController {
     @PostMapping(URIConstant.POST)
     public ResponseEntity<String> addUser(@RequestBody User user) throws SQLException {
         if(user == null || user.getEmail() ==  null || user.getPassword() == null) {
-            throw new IllegalArgumentException("User data is not null");
+            throw new InvalidDataRequestException("User data is not null");
         }
         int executed = userService.addUser(user);
         return executed != 0 ? new ResponseEntity<>("Add account successful", HttpStatus.CREATED)
@@ -84,7 +85,7 @@ public class UserController {
     @PutMapping(URIConstant.PUT)
     public ResponseEntity<String> editUser(@RequestBody User user) throws SQLException {
         if(user == null || user.getId() ==  null || user.getEmail() ==  null || user.getPassword() == null) {
-            throw new IllegalArgumentException("User data is not null");
+            throw new InvalidDataRequestException("User data is not null");
         }
 
         User getUser = userService.findUserById(user.getId());
